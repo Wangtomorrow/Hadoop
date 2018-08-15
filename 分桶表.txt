@@ -1,0 +1,52 @@
+﻿分区表优点：
+	1，更快，桶为表加上额外结构，链接相同列划分了桶的表，可以使用map-side join更加高效。
+	2，取样sampling更高效。没有分区的话需要扫描整个数据集。
+
+先创建一个分桶表
+	create table student4(sno int,sname string,sex string,sage int, sdept string) 
+	clustered by(sno) into 3 buckets 
+	row format delimited 
+	fields terminated by ',';
+
+	set hive.enforce.bucketing = true;强制分桶。
+
+	load data local inpath '/home/hadoop/hivedata/students.txt' overwrite into table student4;
+
+我们看到虽然设置了强制分桶，但实际STUDENT表下面只有一个STUDENTS一个文件。
+分桶也就是分区，分区数量等于文件数，所以上面方法并没有分桶。
+
+
+#创建第2个分桶表（中间表）
+	create table stu_buck(sno int,sname string,sex string,sage int,sdept string)
+	clustered by(sno) sorted by(sno DESC) into 4 buckets
+	row format delimited
+	fields terminated by ',';
+
+#设置变量,设置分桶为true, 设置reduce数量是分桶的数量个数
+	set hive.enforce.bucketing = true;
+	set mapreduce.job.reduces=4;
+
+#往创建的分通表插入数据(插入数据需要是已分桶, 且排序的)
+#可以使用distribute by(sno) sort by(sno asc)   或是排序和分桶的字段相同的时候使用Cluster by(字段)
+#注意使用cluster by  就等同于分桶+排序(sort)
+	insert into table stu_buck
+	select sno,sname,sex,sage,sdept from student distribute by(sno) sort by(sno asc);
+
+
+
+
+**修改桶表中bueket数量
+	alter table btest3 clustered by(**) sorted by(*) into 10 buckets;
+
+
+重点1：CLUSTERED BY来指定划分桶所用列和划分桶的个数。HIVE对key的hash值除bucket个数取余数，保证数据均匀随机分布在所有bucket里。
+重点2:SORTED BY对桶中的一个或多个列另外排序
+
+
+
+
+Hive中的抽样查询
+	select * from table_name tablesample(bucket X out of Y on field);
+X表示从哪个桶中开始抽取，Y表示相隔多少个桶再次抽取。
+Y必须为分桶数量的倍数或者因子，比如分桶数为6，Y为6，则表示只从桶中抽取1个bucket的数据；
+若Y为3，则表示从桶中抽取6/3（2）个bucket的数据
