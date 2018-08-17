@@ -1,0 +1,16 @@
+﻿-- 列举库或表
+SHOW DATABASES/TABLES;
+-- 根据关键字查找库或表
+SHOW DATABASES/TABLES LIKE "*keyword*";
+-- 列举所有函数
+SHOW FUNCTIONS;
+-- 查看分区
+SHOW PARTITIONS test_table;
+-- 查看建表语句
+SHOW CREATE TABLE table_name;
+-- 详细描述，包括建表时间、最后更新时间、行数统计等。
+DESC FORMATTED test_table;
+-- 解释语句
+EXPLAIN select * from dual;
+-- 清空表
+truncate table table_name;

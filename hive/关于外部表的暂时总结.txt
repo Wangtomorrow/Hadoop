@@ -1,0 +1,11 @@
+﻿external
+
+加载数据
+  location ‘路径'  原目录下的数据不会移动，并且此table下没有分区目录，删除时，原目录下的文件不会被删除
+  load方式  原目录下的数据会被移动，并创建分区目录，删除时，创建的分区目录及其下的数据也不会被删除。
+
+创建后加载数据
+  alter table table_name location(条件);
+删除数据
+  alter table table_name drop partition(条件);
+

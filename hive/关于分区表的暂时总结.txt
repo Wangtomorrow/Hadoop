@@ -1,0 +1,12 @@
+﻿分区列是表实际定义的列
+
+分区表的复制:
+1.需要先用create table score3 like score来复制表结构，然后将原表的数据复制到 新表（score3）
+1. 创建新表: create table score3 like score;
+2. 将HDFS的数据文件复制一份到新表目录，hive cmd模式下： 
+dfs -cp -f /user/hive/warehouse/score/* /user/hive/warehouse/score3/
+3. 修复分区元数据信息，hive cmd模式下： MSCK REPAIR TABLE score3;
+
+
+分区表多个分区同时查询时，partition(part1=a,part2=b) 中间用‘，’隔开
+

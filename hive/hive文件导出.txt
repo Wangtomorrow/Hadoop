@@ -1,0 +1,16 @@
+﻿一、导出到本地文件系统
+	insert overwrite local directory '/home/hadoop/aaaaa'
+	select * from table_name;
+二、导出到HDFS中
+	insert overwrite directory '/home/hadoop/hdfs'
+	select * from table_name;
+三、导出到Hive的另一个表中
+	insert into table test
+	partition (age='25')
+	select id, name, tel
+	from wyp;
+
+
+导出到本地  使用hive -e
+	hive -e "select * from test" >> res.csv
+	hive -f sql.q >> res.csv	其中文件sql.q写入你想要执行的查询语句

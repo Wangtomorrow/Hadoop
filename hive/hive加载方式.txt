@@ -1,0 +1,45 @@
+﻿1.load加载
+  load data [local] inpath '路径' [overwrite] into table table_name [partition(条件)]
+  local：可选，表示从本地文件系统加载文件，而非hdfs
+  overwrite:可选，先删除原来数据，然后再加载
+
+  *partition:这里是指将inpath中的所有数据加载到那个分区，并不会判断源数据中每一条记录属于哪个分区。
+
+  load完了之后，会自动把INPATH下面的源数据删掉，其实就是将INPATH下面的数据移动到/usr/hive/warehouse目录下了。
+
+  简单说就是  mv
+
+
+2.insert加载
+  基本模式
+  insert into|overwrite table table_name [partition(条件)] select_statement
+  多插入模式
+  from fromtable1，fromtable2....
+  insert into|overwrite table table_name [partition(条件)] select_statement
+  [insert into|overwrite table table_name [partition(条件)] select_statement]
+  动态分区模式
+  inser into|overwrite table table_name partition(条件) select _statement from from_statement
+
+  for example:
+    insert overwrite table score partition (school="school1",class="class1") select id,name,Chinese,English,math from score1 where school="school1" and class="class1";
+    insert overwrite table score partition (school="school2",class="class1") select id,name,Chinese,English,math from score1 where school="school2" and class="class1";
+    insert overwrite table score partition (school="school3",class="class1") select id,name,Chinese,English,math from score1 where school="school3" and class="class1";
+
+  **********启动动态分区功能**********
+  启动动态分区功能
+  set hive.exec.dynamic.partition=true;
+  主分区静态，副分区动态  partition(part1=abc,part2) 让系统自己分配决定part2
+  注意，动态分区不允许主分区采用动态列而副分区采用静态列，这样将导致所有的主分区都要创建副分区静态列所定义的分区。
+  动态分区可以允许所有的分区列都是动态分区列，需设置
+  set hive.exec.dynamic.partition.mode;
+  hive.exec.dynamic.partition.mode=nostrict
+  它的默认值是strick，即不允许分区列全部是动态的，这是为了防止用户有可能原意是只在子分区内进行动态建分区，
+  但是由于疏忽忘记为主分区列指定值了，这将导致一个dml语句在短时间内创建大量的新的分区（对应大量新的文件夹），
+  对系统性能带来影响。
+
+3.create...as操作
+  create table table1 as select * from table2
+
+
+from
+  https://blog.csdn.net/qq_35022142/article/details/79801888
