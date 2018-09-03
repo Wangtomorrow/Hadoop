@@ -1,0 +1,182 @@
+/* Minification failed. Returning unminified contents.
+(154,1): run-time error CSS1019: Unexpected token, found '@import'
+(154,9): run-time error CSS1019: Unexpected token, found 'url("common.css")'
+ */
+/* Elements */
+html { margin: 0; padding: 0; }
+body { font-size: 1em; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; margin: 1em;	}
+a {	text-decoration: none; font-weight: bold; }
+a:hover { text-decoration: underline; }
+img { border: none; }
+h1,h2,h3,h4,h5,h6 { margin: 0; padding: 0; }
+
+/* Classes */
+.clearing { font-size: 0; line-height: 0; clear: both; }
+.container { margin: 0 10px 10px 0;	font-size: 1em;	}
+.containerheader { padding: 0 0 0 18px; font-weight: bold; color: #FFF;	line-height: 16px; }
+.containerheader h3 { font-size: 0.7em; }
+.containerheader a { color: #FFF; }
+.containercontent { font-size: 13px; margin: 0; padding: 0; background: #FFF; }
+.containercontent h5 { font-size: 1em; margin: 10px 0; padding: 0; }
+.containercontent li { line-height: 15px; }
+.containercontent p { margin: 10px 0; padding: 0; }
+.post {	padding: 10px; font-size: 13px; line-height:1.5; }
+p{ line-height:1.5; }
+.post h2 { background: url(Images/icon_posttitle.png) left no-repeat; padding: 0 0 0 25px; font-size: 1.2em;margin-bottom:5px; }
+.postfoot { text-align: right; font-size: 0.8em; font-weight: bold; margin: 0; padding: 0 10px 0 0; line-height: 20px; }
+p.postfoot { padding-right: 10px; }
+.rsslink { padding: 0 0 0 23px;	background: url(Images/xmlsmall.gif) left no-repeat; }
+
+/* IDs */
+#maincontainer { text-align: left; margin: 0 auto; }
+#header h1 { margin: 3px 0;	padding: 0; }
+#header h1 a { margin-left: 5px; padding-top: 5px; text-decoration: none; font-size: 0.7em; }
+#tagline { font-size: 0.7em; margin: 0 0 3px 5px; font-weight: bold; }
+#blogstats { font-size: 0.9em; font-weight: bold; margin: 0 75px 0 0; float: right; }
+* html #blogstats { margin: 0 40px 0 0; } /* IE Hack */
+#blogstats span { background: url(Images/icon_stats.gif) left no-repeat; padding: 0 0 0 18px; margin: 0 5px 0 0; }
+#menubar { font-size: 0.7em; font-weight: bold; color: #FFF; margin: 0 0 10px 0; padding: 3px 0; }
+#menubar ul { margin: 0; padding: 0; list-style: none; }
+#menubar li { display: inline; margin-left: 10px; margin-right: 10px; }
+#menubar a { color: #FFF; }
+#menubar .home { background: url(Images/icon_home.gif) no-repeat; padding: 0 0 0 18px; }
+#menubar .contact {	background: url(Images/icon_contact.gif) no-repeat; padding: 0 0 0 18px; }
+#menubar .syndication {	background: url(Images/xmlsmall.gif) no-repeat; padding: 0 0 0 32px; }
+#menubar .admin { background: url(Images/icon_login.gif) no-repeat;	padding: 0 0 0 18px; }
+#left {	width : 180px; float: left;	margin: 0 0 0 10px; }
+#left ul { margin: 0; padding: 0; list-style: none; }
+* html #left { margin: 0 0 0 5px; } /* IE Hack */
+#left .container { width: 180px; margin: 0 0 10px 0; background: #FFF; }
+#left .containercontent { padding: 5px; }
+#right { margin-left: 200px; }
+#footer { font-size: 0.7em;	text-align: center;	clear: both; margin: 10px 0 0 0; }
+#comments { font-size: 1em;font-family: Verdana }
+#comments h4 {font-size: 0.9em; }
+#comments h5 { font-size: 0.9em; }
+#commentform { padding: 10px 0 0 10px; }
+#commentform td { font-size: 10px; }
+#contactform { padding: 0 0 10px 10px; }
+#contactform p { margin: 10px 0; padding: 0; }
+#contactform td { font-size: 10px; }
+
+/* Calendar Styles */
+
+#entryCal {
+	width: 165px;
+	height: 160px;
+	color: #000;
+	border: none !important;
+	border-collapse: collapse;
+}
+
+#entryCal a {
+	font-weight: bold;
+}
+
+#entryCal td {
+	border: 1px solid white;
+	font-size: 10px;
+}
+
+#entryCal .title {
+	background-color: white !important;
+	padding: 4px;
+	border-bottom: 1px solid silver;
+}
+
+#entryCal .day-header {
+	background-color: white !important;
+	padding: 4px;
+}
+
+#entryCal .next {
+}
+
+#entryCal .day {
+	color: gray;
+	background-color: #eee;
+	padding: 4px;
+}
+
+#entryCal .other-month {
+	color: silver;
+	padding: 4px;
+}
+
+#entryCal .today {
+	color: white;
+	background-color: #aaa;
+}
+
+#entryCal .today a {
+	color: white;
+}
+
+#entryCal .weekend {
+	color: gray;
+	background-color: #dadada;
+	padding: 4px;
+}
+
+#entryCal .selected a {
+	color: white;
+}
+
+#entryCal .selector {
+	background-color: white !important;
+}
+
+p
+{
+	font-size:13px;
+}
+
+.post
+{
+	font-size:13px;
+}
+
+.container ul{font-size:0.7em;padding:5px !important;}
+.RecentComment{font-size:0.7em;}
+.catListTitle{font-size:0.7em;}
+
+.clear{
+    clear: none;
+}
+
+@media only screen and (max-width: 767px) {
+	#menubar{font-size: 0.7rem;}
+	#content{display: flex;	flex-flow:column;}
+	#left {width: auto;float: none;order: 1;}
+	#right {margin-left: 0;}
+	#footer{display: none;}
+	#comment_form{padding: 0 10px;}
+	.containerheader h3 {font-size: 0.7rem;}
+	#left .container{width: auto;margin-right: 10px;}
+	.container ul{font-size: 0.7rem;}
+}
+@import url("common.css");
+
+/* Elements */
+body { background: #F9FFFB;	}
+a { color : #90BE8C; }
+
+/* Classes */
+.containerheader { background: #90BE8C url(Images/icon_windows.gif) left no-repeat; }
+.containerheader h3 { background: #90BE8C url(Images/olive_titleback.gif) right no-repeat; }
+.containercontent { border: 1px solid #6F9D6D; }
+.post {	background: #FFF; }
+.postfoot a { color: #6F9D6D; }
+.postfoot { background: #F9FFFB url(Images/olive_postfootback.gif) repeat-x; }
+.textbox { border: 1px solid #6F9D6D; }
+.textarea { border: 1px solid #6F9D6D; }
+.button { border: 1px solid #6F9D6D; }
+
+/* IDs */
+#maincontainer { background: #E2F9DE; border: 1px solid #6F9D6D; }
+#header h1 a { color : #6F9D6D; }
+#tagline { color: #90BE8C; }
+#blogstats span { color: #DEF4D9; }
+#menubar { background: #90BE8C url(Images/olive_titleback.gif) right no-repeat; }
+#right { background: #DEF4D9; }
+#entryCal .selected { background-color: #6F9D6D !important; }

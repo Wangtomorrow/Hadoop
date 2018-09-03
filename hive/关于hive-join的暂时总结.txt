@@ -1,0 +1,26 @@
+﻿内关联（join）
+  只返回能关联上的结果
+
+左外关联（left [outer] join）
+ 以LEFT [OUTER] JOIN关键字前面的表作为主表，和其他表进行关联，返回记录和主表的记录数一致，关联不上的字段置为NULL。
+
+右外关联（right [outer] join）
+  以RIGTH [OUTER] JOIN关键词后面的表作为主表，和前面的表做关联，返回记录数和主表一致，关联不上的字段为NULL。
+
+全外关联（full [outer] join）
+  以两个表的记录为基准，返回两个表的记录去重之和，关联不上的字段为NULL。
+  注意：FULL JOIN时候，Hive不会使用MapJoin来优化。 
+
+left semi join
+  以LEFT SEMI JOIN关键字前面的表为主表，返回主表的KEY也在副表中的记录。
+  等价于WHERE a.id IN (SELECT id FROM lxw1234_b);
+  等价于 内关联
+  等价于WHERE EXISTS (SELECT 1 FROM lxw1234_b b WHERE a.id = b.id);
+
+笛卡尔积关联（cross join）
+  返回两个表的笛卡尔积结果，不需要指定关联键。
+
+
+
+除非特殊需求，并且数据量不是特别大的情况下，才可以慎用CROSS JOIN，否则，很难跑出正确的结果，或者JOB压根不能执行完。
+Hive中只要是涉及到两个表关联，首先得了解一下数据，看是否存在多对多的关联。

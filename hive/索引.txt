@@ -1,0 +1,104 @@
+﻿索引操作
+
+　　1)  Hive 创建索引。
+
+　　2) 更新数据。
+
+　　Hive> alter index user_index on user rebuild;
+ 
+
+　　3) 删除索引
+
+　　Hive> drop index user_index on user;
+ 
+
+　　4)       查看索引
+
+　Hive> show index on user;
+ 
+
+　　5)       创建表和索引案例
+
+　　Hive> create table index_test(id INT,name STRING) PARTITIONED BY (dt STRING) ROW FORMAT DELIMITED FILEDS TERMINATED BY ',';
+　　创建一个索引测试表 index_test，dt作为分区属性，“ROW FORMAT DELIMITED FILEDS TERMINATED BY ','” 表示用逗号分割字符串，默认为‘\001’。
+
+ 
+
+　　6)       创建一个临时索引表 index_tmp。
+
+　Hive> create table index_tmp(id INT,name STRING,dt STRING) ROW FORMAT DELIMITED FILEDS TERMINATED BY ',';
+ 
+
+　　7)       加载本地数据到 index_tmp 表中。
+
+Hive> load data local inpath '/home/hadoop/djt/test.txt' into table index_tmp;
+ 
+
+　　设置 Hive 的索引属性来优化索引查询，命令如下。
+
+　Hive> set Hive.exec.dynamic.partition.mode=nonstrict;----设置所有列为 dynamic partition
+　Hive> set Hive.exec.dynamic.partition=true;----使用动态分区
+ 
+
+　　8)       查询index_tmp 表中的数据，插入 table_test 表中。
+
+Hive> insert overwrite table index_test partition(dt) select id,name,dt from index_tmp;
+ 
+
+　　9)       使用 index_test 表，在属性 id 上创建一个索引 index1_index_test 。
+
+Hive> create index index1_index_test on table index_test(id) as 'org.apache.hadoop.Hive.ql.index.compact.CompactIndexHandler' WITH DEFERERD REBUILD;
+ 
+
+　　10)   填充索引数据。
+
+Hive> alter index index1_index_test on index_test rebuild;
+ 
+
+　　11)   查看创建的索引。
+
+Hive> show index on index_test
+ 
+
+　　12)   查看分区信息。
+
+　Hive> show partitions index_test;
+ 
+
+　　13)   查看索引数据。
+
+　$ hadoop fs -ls /usr/Hive/warehouse/default_index_test_index1_index_test_
+ 
+
+　　14)   删除索引。
+
+Hive> drop index index1_index_test on index_test;
+Hive> show index on index_test;
+ 
+
+　　15)   索引数据也被删除。
+
+$ hadoop fs -ls /usr/Hive/warehouse/default_index_test_index1_index_test_
+
+
+    16)   修改配置文件信息。
+    <property>
+　　 　　<name>Hive.optimize.index.filter</name>
+　　　　<value>true</value>
+　　</property>
+　　<property>
+　　　　 <name>Hive.optimize.index.groupby</name>
+　　 　　<value>true</value>
+　　</property>
+　　<property>
+　　　　<name>Hive.optimize.index.filter.compact.minsize</name>
+　　　　<value>5120</value>
+　　</property>
+
+    Hive.optimize.index.filter 和 Hive.optimize.index.groupby 参数默认是 false。使
+
+　　用索引的时候必须把这两个参数开启，才能起到作用。
+
+　　Hive.optimize.index.filter.compact.minsize 参数为输入一个紧凑的索引将被自动采用
+
+　　最小尺寸、默认5368709120（以字节为单位）。

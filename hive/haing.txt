@@ -1,0 +1,4 @@
+﻿Hive 不支持 HAVING 子句，可以将 HAVING 子句转化为一个子查询。例如以下这条语句 Hive 不支持。
+  select col1 from table1 group by coll having sum(col2) > 10;
+可以用以下查询来表达。
+  select col1 from (select col1,sum(col2) as col2sum from table1 group by col1) table2 where table2.col2sum > 10;
